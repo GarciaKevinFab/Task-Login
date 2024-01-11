@@ -1,0 +1,43 @@
+.confirmButton, .cancelButton {
+    padding: 12px 24px;          
+    font-size: 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;         
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1); 
+    text-transform: uppercase; 
+    font-weight: 600;          
+}
+
+.confirmButton {
+    background-color: #ff5252;
+    color: #fff;
+}
+
+.cancelButton {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.confirmButton:hover, .confirmButton:focus {
+    background-color: #e04040;
+    box-shadow: 0px 5px 15px rgba(224, 64, 64, 0.2); 
+    transform: translateY(-2px); 
+}
+
+.cancelButton:hover, .cancelButton:focus {
+    background-color: #d1d1d1;
+    box-shadow: 0px 5px 15px rgba(209, 209, 209, 0.2); 
+    transform: translateY(-2px); 
+}
+
+@media (max-width: 768px) {
+    .confirmButton, .cancelButton {
+        padding: 10px 18px; 
+        font-size: 14px;   
+        margin-right: 6px; 
+        box-shadow: none; 
+    }
+}

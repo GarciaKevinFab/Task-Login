@@ -1,0 +1,81 @@
+/* Estilo General del Header */
+.header {
+    background-color: black;
+    color: white;
+    padding: 1rem 0;
+    width: 100%; /* Asegurarse que el header ocupe toda la anchura */
+}
+
+.header-title {
+    font-size: 2rem; /* Tamaño del título */
+    color: white; /* Color del texto */
+    text-align: center; /* Centrar el título */
+    margin: 0; /* Quitar el margen por defecto del h1 */
+}
+
+.sticky__header {
+    position: fixed;
+    top: 0;
+    left: 0; /* Añadido para asegurar que el header se pegue a la izquierda */
+    right: 0; /* Añadido para asegurar que el header se pegue a la derecha */
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Botones */
+.btn {
+    background-color: #333; /* Color de fondo para los botones */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem; /* Aumentado el relleno para que los botones sean más grandes */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 0.5rem; /* Añadido margen a los lados de los botones */
+}
+
+.btn:hover {
+    background-color: #555; /* Color más claro al pasar el mouse */
+}
+
+.btn-dark {
+    background-color: #222; /* Botón oscuro para cerrar sesión */
+}
+
+.btn-dark:hover {
+    background-color: #333;
+}
+
+.btn a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilo Responsivo */
+@media (max-width: 768px) {
+    .header {
+        padding: 0.5rem 0; /* Reducir el relleno para dispositivos móviles */
+    }
+
+    .header-title {
+        font-size: 1.5rem; /* Tamaño más pequeño para dispositivos móviles */
+    }
+
+    .nav__right {
+        display: none; /* Ocultar botones en dispositivos móviles */
+    }
+}
+
+@media (min-width: 769px) {
+    .nav__right {
+        display: flex;
+        justify-content: flex-end; /* Alinea los botones a la derecha */
+    }
+}
+
+/* Ajuste para los elementos cuando el Header es pegajoso */
+.sticky__header .btn,
+.sticky__header .header-title {
+    padding: 0.5rem 1rem; /* Consistente relleno para todos los elementos */
+    margin: auto; /* Centrado automático */
+}

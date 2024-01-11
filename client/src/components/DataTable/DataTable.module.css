@@ -1,0 +1,69 @@
+.taskCounter {
+  text-align: right;
+  padding: 10px 20px;
+  color: #000000;
+  font-size: 1.2rem;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta automáticamente el número de columnas */
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: start;
+}
+
+/* Estilos para la paginación y el contador de tareas */
+.pagination {
+  display: flex;
+  justify-content: space-between; /* Cambio para distribuir los elementos a ambos extremos */
+  align-items: center;
+  width: 100%; /* Ajuste para que la paginación use todo el ancho disponible */
+  padding: 20px;
+}
+
+.noTasksMessage {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #666;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+
+.taskCounter {
+  display: flex;
+  justify-content: flex-start; /* Alinea el contador a la izquierda */
+  width: 100%; /* Asegúrate de que ocupe todo el ancho */
+  padding: 10px 20px;
+}
+
+/* Mejora el responsive design para pantallas grandes */
+@media (min-width: 1024px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta las columnas para pantallas más grandes */
+    max-width: 1200px; /* Limita el ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor en la página */
+  }
+}
+
+/* Estilos para dispositivos móviles y tabletas */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Asegúrate de que la cuadrícula se adapte a dispositivos más pequeños */
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .taskCounter {
+    justify-content: center; /* Centra el contador en dispositivos móviles */
+    font-size: 0.9rem;
+  }
+}

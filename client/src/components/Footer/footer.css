@@ -1,0 +1,31 @@
+/* Estilo General del Footer */
+.footer {
+    background-color: black; /* Fondo negro para el footer */
+    padding: 1rem 0; /* Espaciado superior e inferior */
+    position: relative; /* Puede ser 'absolute' si quieres que esté en la parte inferior de la página */
+    bottom: 0; /* Alineado al fondo si es 'absolute' */
+    width: 100%; /* Asegurar que ocupe toda la anchura */
+}
+
+/* Contenedor de Copyright */
+footer .container {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    text-align: center; /* Asegura que el texto esté centrado si hay saltos de línea */
+}
+
+/* Estilo de texto de Copyright */
+footer p {
+    margin: 0; /* Anula cualquier margen por defecto */
+    font-size: 0.9rem; /* Ajusta el tamaño del texto */
+    padding: 0.5rem 0; /* Espaciado interior */
+    color: #fff;
+}
+
+/* Estilo Responsivo */
+@media (max-width: 768px) {
+    footer .container {
+        flex-direction: column; /* Acomoda el contenido en columnas para dispositivos móviles */
+    }
+}
