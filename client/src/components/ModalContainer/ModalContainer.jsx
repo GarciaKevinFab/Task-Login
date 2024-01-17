@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono específico
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './ModalContainer.module.css';
 
 Modal.setAppElement('#root');

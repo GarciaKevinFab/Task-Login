@@ -17,7 +17,7 @@ const TaskCard = ({
   const cardClassName = completed ? styles.completed : styles.notcompleted;
 
   const handleViewClick = () => {
-    onTaskView(task); // Llama a la función proporcionada desde el padre
+    onTaskView(task);
   };
 
   const handleDoubleClick = () => {

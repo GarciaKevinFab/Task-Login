@@ -12,11 +12,10 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOptions = {
-    origin: true,
+    origin: 'http://localhost:3000',
     credentials: true
 }
 
-//database connection
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
@@ -26,7 +25,6 @@ const connect = async () => {
     }
 };
 
-
 //middleware
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -35,9 +33,6 @@ app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/tasks', taskRoutes);
 
-
-
-// Error handling middleware
 app.use(function (err, req, res, next) {
     console.error(err.stack);
     res.status(500).send({ message: err.message });

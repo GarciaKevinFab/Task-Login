@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from "./TaskForm.module.css";
 
@@ -41,7 +40,6 @@ const TaskForm = ({ onSubmit, onCancel, selectedTask, setIsEditing }) => {
     e.preventDefault();
     onSubmit(task);
 
-    // Restablece el formulario y el estado
     setTask({ title: "", description: "", completed: false });
     setIsFormEmpty(true);
   };
@@ -109,7 +107,7 @@ const TaskForm = ({ onSubmit, onCancel, selectedTask, setIsEditing }) => {
         </div>
       </form>
       <span className={styles.helpText}>
-        * Doble click para marcar una tarea como completada
+        * Doble click para marcar una tarea como realizada
       </span>
     </div>
   );

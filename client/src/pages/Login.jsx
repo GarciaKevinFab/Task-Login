@@ -34,9 +34,10 @@ const Login = () => {
     const handleClick = async e => {
         e.preventDefault();
 
-        dispatch({ type: 'LOGIN_START' });
+        dispatch({ type: 'LOGIN_START' })
 
         try {
+
             const res = await fetch(`${BASE_URL}/auth/login`, {
                 method: 'post',
                 headers: {
@@ -51,8 +52,6 @@ const Login = () => {
             if (!res.ok) {
                 toast.error(result.message);
             } else {
-                // Asumiendo que 'result' contiene un campo 'token'
-                localStorage.setItem('token', result.token); // Guardar el token
                 dispatch({ type: "LOGIN_SUCCESS", payload: result.data });
                 navigate("/home");
             }
@@ -91,7 +90,7 @@ const Login = () => {
                                         <i onClick={togglePasswordVisibility} className="position-absolute top-50 end-0 translate-middle-y" style={{ cursor: 'pointer', marginRight: '10px' }}>{passwordShown ? <FaEye /> : <FaEyeSlash />}</i>
                                     </FormGroup>
 
-                                    <Button className="btn" type="submit">
+                                    <Button className="btn secondary__btn auth__btn" type="submit">
                                         Ingresar
                                     </Button>
                                 </Form>

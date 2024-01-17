@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 const verifytoken = (req, res, next) => {
-    console.log("Token received: ", req.cookies.accessToken); // Agregar esto
+    console.log("Request cookies: ", req.cookies);
+    console.log("Token received: ", req.cookies.accessToken)
 
     const token = req.cookies.accessToken
 
@@ -9,7 +10,6 @@ const verifytoken = (req, res, next) => {
         return res.status(401).json({ success: false, message: "You're not authotize" })
     }
 
-    //if token is exist then verify the token
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
 
         if (err) {
@@ -33,6 +33,7 @@ export const verifyUser = (req, res, next) => {
 
 export const verifyAdmin = (req, res, next) => {
     verifytoken(req, res, next, () => {
+
         if (req.user.role === 'admin') {
             next();
         } else {

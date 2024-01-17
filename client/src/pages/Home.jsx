@@ -1,75 +1,77 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import CustomDataTable from "../components/DataTable/DataTable";
-import Taskform from "../components/TaskForm/TaskForm";
+import TaskForm from "../components/TaskForm/TaskForm";
 import ConfirmModal from "../components/ConfirmModal/ConfirmModal";
 import styles from "../styles/Home.module.css";
-import { AuthContext } from "../context/AuthContext";
 import { BASE_URL } from "../utils/config";
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-
-        if (!token) {
+    const handleErrorResponse = useCallback((error) => {
+        const status = error.response?.status;
+        const errorMessage = error.response?.data.message || "Ocurrió un error inesperado.";
+        if (status === 401) {
+            toast.error("No estás autorizado. Por favor, inicia sesión.");
             navigate('/login');
+        } else if (status === 403) {
+            toast.error("Acceso prohibido.");
         } else {
-            axios.defaults.withCredentials = true;
-
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            fetchData();
+            toast.error(errorMessage);
         }
     }, [navigate]);
 
-
-    const fetchData = async () => {
+    const makeHttpRequest = async (method, url, requestData = {}) => {
         try {
-            const response = await axios.get(`${BASE_URL}/tasks`);
-            setData(response.data.reverse());
+            const config = {
+                withCredentials: true,
+            };
+            return await axios[method](url, requestData, config);
         } catch (error) {
             handleErrorResponse(error);
         }
     };
 
-    const handleErrorResponse = (error) => {
-        if (error.response?.status === 401) {
-            toast.error("No estás autorizado. Por favor, inicia sesión.");
-            navigate('/login');
-        } else {
-            toast.error(error.response?.data?.message || "Ocurrió un error inesperado.");
+    const fetchData = useCallback(async () => {
+        const makeHttpRequest = async (method, url, data = {}) => {
+            try {
+                return await axios[method](url, data);
+            } catch (error) {
+                handleErrorResponse(error);
+            }
+        };
+
+        const response = await makeHttpRequest('get', `${BASE_URL}/tasks`);
+        if (response) {
+            setData(response.data.reverse());
         }
-    };
+    }, [handleErrorResponse]);
+
+    useEffect(() => {
+        axios.defaults.withCredentials = true;
+        fetchData();
+        console.log("Cookies presentes:", document.cookie);
+
+    }, [fetchData]);
 
     const handleSave = async (taskData) => {
-        try {
-            let message = "Tarea guardada con éxito!";
-            if (taskData._id) {
-                const updatedTask = await axios.patch(`${BASE_URL}/tasks/${taskData._id}`, taskData);
-                setData(prevData =>
-                    prevData.map(task =>
-                        task._id === taskData._id ? updatedTask.data : task
-                    )
-                );
-                message = "Tarea actualizada con éxito!";
-            } else {
-                const newTask = await axios.post(`${BASE_URL}/tasks`, taskData);
-                setData(prevData => [newTask.data, ...prevData]);
-            }
+        const method = taskData._id ? 'patch' : 'post';
+        const url = `${BASE_URL}/tasks${taskData._id ? `/${taskData._id}` : ''}`;
+        const response = await makeHttpRequest(method, url, taskData);
+
+        if (response) {
+            let message = taskData._id ? "Tarea actualizada con éxito!" : "Tarea guardada con éxito!";
+            fetchData();
             setIsEditing(false);
             setSelectedTask(null);
             toast.success(message);
-        } catch (error) {
-            handleErrorResponse(error);
         }
     };
 
@@ -121,7 +123,7 @@ const Home = () => {
         <div className={styles.containers}>
             <div className={styles.content}>
                 <div className={styles.formcontainer}>
-                    <Taskform
+                    <TaskForm
                         onSubmit={handleSave}
                         onCancel={onCancel}
                         selectedTask={selectedTask}

@@ -46,13 +46,10 @@ const Register = () => {
             const result = await res.json();
 
             if (res.status === 400) {
-                // This is a duplicate user error
                 toast.error(result.message);
             } else if (!res.ok) {
-                // Other errors
                 toast.error("El nombre de usuario o correo electrónico ya existen.");
             } else {
-                // Success
                 dispatch({ type: "REGISTER_SUCCESS" });
                 navigate("/login");
             }
